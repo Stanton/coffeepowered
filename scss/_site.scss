@@ -1,0 +1,346 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.hero,
+.panel {
+    margin-top: 1.15rem;
+    border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before,
+.panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(90deg, rgba(31, 39, 42, 0.012) 0, rgba(31, 39, 42, 0.012) 1px, transparent 1px, transparent 8px);
+}
+
+.two-col-layout {
+    margin-top: 1.15rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(330px, 0.92fr);
+    gap: 1.15rem;
+    align-items: start;
+}
+
+.two-col-layout > .left-column > .hero {
+    margin-top: 0;
+}
+
+.two-col-layout > .left-column > .panel:first-of-type,
+.two-col-layout > .side-feed {
+    margin-top: 0;
+}
+
+.hero-compact {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.hero-compact::before {
+    display: none;
+}
+
+.hero-media {
+    margin: 0;
+    width: 100%;
+    align-self: start;
+    height: fit-content;
+    border-radius: 0px;
+    @include framed-media();
+}
+
+.hero-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-content {
+    width: 100%;
+    padding: 0.2rem 0.2rem 0.25rem;
+    background: transparent;
+    color: var(--ink);
+}
+
+.eyebrow {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    @include sans-copy(700);
+}
+
+.eyebrow.ink {
+    color: var(--ink-muted);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    font-family: $font-sans;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: #333;
+}
+
+h1 {
+    margin-top: 0.5rem;
+    font-size: clamp(2rem, 6.2vw, 4.2rem);
+    line-height: 0.95;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: clamp(1.28rem, 2.4vw, 1.9rem);
+    line-height: 1.04;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.spread > h2,
+.connect > h2 {
+    padding-bottom: 0.45rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+}
+
+#work-heading,
+#writing-heading,
+#feed-heading,
+#contact-heading {
+    scroll-margin-top: 5.25rem;
+}
+
+h3 {
+    font-size: 0.96rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #333;
+}
+
+.intro {
+    margin-top: 0.9rem;
+    max-width: 60ch;
+    font-size: clamp(0.98rem, 1.9vw, 1.1rem);
+    line-height: 1.45;
+    color: var(--ink-muted);
+}
+
+.section-note {
+    margin: -0.15rem 0 1rem;
+    max-width: 58ch;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+}
+
+.writing-subhead {
+    margin: 1.15rem 0 0.7rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.hero-cta {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    @include sans-copy(700);
+    min-height: 40px;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.btn-primary {
+    border-color: #63bfcc;
+    background: #63bfcc;
+    color: var(--ink);
+}
+
+.btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+}
+
+.btn-primary:hover {
+    background: #86d2de;
+    border-color: #86d2de;
+}
+
+.hero-facts {
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.hero-facts article {
+    border-left: 1px solid var(--line);
+    padding-left: 0.6rem;
+}
+
+.hero-facts article:first-child {
+    border-left: 0;
+    padding-left: 0;
+}
+
+.fact-label,
+.feed-meta {
+    margin: 0;
+    @include uppercase-meta(0.63rem);
+}
+
+.fact-label {
+    color: var(--ink-muted);
+}
+
+.fact-value {
+    margin: 0.22rem 0 0;
+    color: var(--ink);
+    font-family: $font-sans;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.panel,
+.spread {
+    padding: 1.2rem;
+}
+
+.panel {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 1.2rem 0;
+}
+
+.work-block p,
+.writing-block p,
+.feed-item p {
+    @include card-copy;
+}
+
+.feed-meta {
+    color: var(--ink-muted);
+    letter-spacing: 0px;
+    font-weight: normal;
+}
+
+.quote-spread {
+    padding: 0;
+    margin: 0;
+}
+
+.quote-block {
+    margin: 0;
+    padding: 0.15rem 0 0.15rem 1.25rem;
+    max-width: 42rem;
+    border-left: 1px solid var(--ink);
+}
+
+.quote-text {
+    margin: 0;
+    font-size: clamp(1.28rem, 2.2vw, 1.9rem);
+    line-height: 1.22;
+    color: #333;
+    text-wrap: balance;
+}
+
+.quote-attribution {
+    margin-top: 0.85rem;
+    @include uppercase-meta(0.7rem);
+}
+
+.writing-spread {
+    @include three-col-grid();
+}
+
+.archive-spread {
+    margin-top: 0.2rem;
+}
+
+.work-spread {
+    @include three-col-grid();
+}
+
+.work-block,
+.writing-block,
+.feed-item {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+.work-block,
+.writing-block {
+    position: relative;
+    padding: 0.9rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.archive-card-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    transition: none;
+}
+
+.archive-block:hover,
+.archive-block:focus-within {
+    background: rgba(99, 191, 204, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(31, 39, 42, 0.08);
+}
+
+.archive-card-link:focus-visible {
+    @include focus-outline(var(--cyan), 0.25rem);
+}
+
+.archive-card-link h3,
+.archive-card-link .archive-meta,
+.archive-card-link p {
+    margin-top: 0;
+}
+
+.archive-card-cta {
+    margin-top: auto;
+    color: var(--cyan);
+}
+
+.archive-card-cta .fa {
+    margin-right: 0.35rem;
+}
+
+.archive-meta {
+    margin: 0 0 0.55rem;
+    @include uppercase-meta(0.68rem);
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smarter images in Jadu CMS | Coffeepowered</title>
+    <meta name="description" content="I’ve recently been looking at ways to enhance certain content types that we deliver through Jadu CMS , my focus at the moment has been through the use of i...">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=20260419-2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/main.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism-line-numbers.min.css">
+    <script defer src="/vendor/prism/prism.js"></script>
+    <script defer src="/vendor/prism/prism-markup.min.js"></script>
+    <script defer src="/vendor/prism/prism-clike.min.js"></script>
+    <script defer src="/vendor/prism/prism-css.min.js"></script>
+    <script defer src="/vendor/prism/prism-javascript.min.js"></script>
+    <script defer src="/vendor/prism/prism-php.min.js"></script>
+    <script defer src="/vendor/prism/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <main class="page page-blog" id="top">
+        <header class="top-nav">
+            <a class="brand" href="/">Coffeepowered</a>
+            <nav class="top-nav-links" aria-label="Primary">
+                <a href="/">Home</a>
+                <a href="/blog/">Archive</a>
+            </nav>
+        </header>
+        
+        <div class="blog-post-layout">
+            <article class="blog-post blog-post-main blog-post-smarter-images-in-jadu-cms">
+                <h1>Smarter images in Jadu CMS</h1>
+                <p class="blog-meta">2011-09-02</p>
+                <div class="blog-note"><p>This post has been restored from the original Coffeepowered archive. Content is preserved, but legacy layout, embeds, and media may not match the original presentation exactly.</p></div>
+                <div class="blog-body"><p>I’ve recently been looking at ways to enhance certain content types that we deliver through <a href="http://jadu.net">Jadu CMS</a>, my focus at the moment has been through the use of images within content, whether that be News, Events, Documents or Homepages. This started with a re-alignment of the news section on the <a href="http://www.leeds.ac.uk">University of Leeds’ corporate website</a>.</p>
+
+<h3 id="multipleimagesizes">Multiple image sizes</h3>
+
+<p>We’ve traditionally been hampered by the fact that Jadu doesn’t yet have the ability to generate multiple image sizes from a single base image so if I wanted to have a large document level image, and a smaller thumbnail within a list view, I’d either have to resize with CSS which results in degraded image quality in some browsers, or have the editors upload multiple versions of each image to the CMS and figure some way to switch between these programatically. Neither of these options were desirable, so we built an image helper that, instead of inserting the !<a href=""></a> element directly into the front end script, we pass the image name to the helper, along with the desired attributes such as a specific height and/or width, the helper then resizes the native image, and caches it for future use.</p>
+
+<pre class="blog-code line-numbers language-php"><code class="language-php">print imageGenerator($imageURL,array(
+
+     &#x27;alt&#x27;=&gt; getImageProperty($imageURL,&#x27;altText&#x27;),
+
+     &#x27;class&#x27;=&gt;&#x27;contentimage&#x27;,
+
+     &#x27;width&#x27;=&gt;340
+
+     )
+
+);</code></pre>Take the <a href="http://www.leeds.ac.uk/news/30292/press_releases">UoL Press Releases news section</a>, for example, we can now elegantly deliver multiple image sizes depending on our needs, without either the bandwidth overhead of resizing large images, or the administration headache of managing multiple images within the CMS, and the image helper can be used anywhere in our front end templates.</p>
+
+<blockquote>
+  <p>we can now elegantly deliver multiple image sizes depending on our needs, without either the bandwidth overhead of resizing large images, or the administration headache of managing multiple images within the CMS</p>
+</blockquote>
+
+<p><a href="/blog/assets/uploads/2011/09/Screen-Shot-2011-09-02-at-18.48.53.png"><img src="/blog/assets/uploads/2011/09/Screen-Shot-2011-09-02-at-18.48.53.png" alt="" title="Screen Shot 2011-09-02 at 18.48.53" /></a></p>
+
+<h3 id="imageattribution">Image attribution</h3>
+
+<p>The next issue I’ve been looking into recently is that of image attribution, again, Jadu doesn’t currently have any options within the multimedia gallery module to attach attribution data to multimedia items. If the UoL wants to use a Creative Commons licensed image, there’s no way, other than adding the attribution data into the body content. I figured there was a better way to do this.</p>
+
+<p>The Multimedia Module within Jadu is the central place to manage all types of multimedia content, for this example I’ll focus on images. One of the core concepts of a CMS is that an image only needs to exist once, but can then be included in any other piece of content. The multimedia manager is a relatively recent addition to Jadu CMS, and as such, provides the bare minimum of features required so I needed to find a way to link attribution data to an image without modifying the core CMS code.</p>
+
+<h3 id="entermachinetags">Enter machine tags</h3>
+
+<p>As we can apply tags to each image, this was a perfect place to use machine tags – a piece of text which contains machine-readable semantic information – to include the relevant licensing information. Machine tags are composed of three parts; a namespace, a predicate, and a value. For example:</p>
+
+<pre class="blog-code line-numbers language-none"><code class="language-none">license:creativecommons=&quot;© 2009 Greg Grossmeier, used under a Creative
+
+ Commons Attribution-ShareAlike license:
+
+ http://creativecommons.org/licenses/by-sa/3.0/&quot;</code></pre>Initially, I hit a brick wall in that the ‘tag’ column within the JaduMultimediaTags table was limited to varchar(50), a sensible default for most english word based tags but kills the chance of using machine tags which are typically longer. Frustrated, <a href="http://twitter.com/#!/stanton/status/108904319063048193">I moaned a bit on Twitter</a>, and within minutes had an email from <a href="http://twitter.com/ap49">@ap49</a> at Jadu asking what they could do to help, and later that night they’d modified the Jadu trunk to change the tag column to varchar(255) which is much more useful, for me at least!</p>
+
+<p>So, armed with our enlarged tag column, I set about writing a function which would parse an images’ tags for our license machine tag, extract the relevant components, and spit out some meaningful markup to the browser which we could style as needed. You can <a href="https://gist.github.com/599db38634c9ba2418d0">get the Image License function from GitHub</a>, in case it’s of use to anyone.</p>
+
+<p>For the University of Leeds’ corporate site, I wanted to include a small copyright, or creative commons symbol in the corner of the image, which would then expand to show the license detail when hovered over. I chose to use CSS for the hover animations rather than javascript and I’m quite pleased with the result. Modern browsers get a nicely animated transition and older browsers simply display the information on hover. The license function can be extended to provide the data in different formats depending on the content’s needs. For a homage widget like the one below, a subtle copyright icon works well, for images, illustrations or figures within a document we may prefer to list all of the attribution data at the foot of the document in a list of references.</p>
+
+<p>Here’s the attribution implemented on our document image component:  </p>
+
+<video controls="controls" src="/blog/assets/uploads/2011/09/attribution.flv.video_.mp4"></video>
+
+<h3 id="lowimpactdevelopment">Low impact development</h3>
+
+<p>Working in this way, we’re able to extend the functionality of the CMS without modifying the core product (which would complicate our upgrade cycle) because we’re making the assumption that these features will eventually be provided natively within the CMS. These functions enhance how we manage and use images, yet are lightweight enough to be stripped out and replaced by native functions if and when they become available.</p></div>
+                <footer class="blog-footer">
+                    <div class="blog-actions">
+                        <p><a href="https://web.archive.org/web/20140713224505/http://coffeepowered.co.uk/2011/09/smarter-images-in-jadu-cms/"><i class="fa fa-link" aria-hidden="true"></i> Source capture</a></p>
+                        <p><a href="/blog/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to archive</a></p>
+                    </div>
+                    <nav class="blog-pager" aria-label="Archive post navigation"><a class="blog-adjacent prev" href="/blog/posts/2012/01/oauth-consumer-in-cakephp-2-0-5/"><span class="blog-adjacent-label">Newer Post</span><span class="blog-adjacent-title">OAuth Consumer in CakePHP 2.0.5</span></a><a class="blog-adjacent next" href="/blog/posts/2011/06/coursefinder-2010-report/"><span class="blog-adjacent-label">Older Post</span><span class="blog-adjacent-title">Coursefinder 2010 report</span></a></nav>
+                </footer>
+            </article>
+            
+        <aside class="blog-sidebar">
+            <section class="blog-sidebar-panel blog-profile-card" aria-label="Profile">
+                <figure class="blog-profile-media">
+                    <img src="/img/stanton.png" alt="Paul Stanton headshot">
+                </figure>
+                <div class="blog-profile-copy">
+                    <p class="blog-kicker">Paul Stanton</p>
+                    <h2>AI / Platform / UX</h2>
+                    <p>I build confidence, explainability, and sustainable scale across products and organisations.</p>
+                    <div class="blog-profile-actions">
+                        <a class="btn btn-primary" href="https://www.linkedin.com/in/paulstanton/">LinkedIn</a>
+                        <a class="btn" href="mailto:paul@coffeepowered.co.uk">Email</a>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-sidebar-panel" aria-label="Other archive posts">
+                <p class="blog-kicker">Other Posts</p>
+                <ol class="blog-sidebar-list"><li><a class="blog-sidebar-link" href="/blog/posts/2013/08/we-are-a-primitive-people/"><span class="blog-sidebar-date">2013-08-01</span><span class="blog-sidebar-title">We are a primitive people</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2013/06/build-what-it-is-you-want-to-build/"><span class="blog-sidebar-date">2013-06-24</span><span class="blog-sidebar-title">Build what it is you want to build</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/11/less-noise-texture-mixin/"><span class="blog-sidebar-date">2012-11-02</span><span class="blog-sidebar-title">Less noise texture mixin</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/02/twig-gr-how-i-learned-to-stop-worrying-and-ship-my-side-projects/"><span class="blog-sidebar-date">2012-02-06</span><span class="blog-sidebar-title">Twig.gr - How I learned to stop worrying and ship my side projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/01/oauth-consumer-in-cakephp-2-0-5/"><span class="blog-sidebar-date">2012-01-09</span><span class="blog-sidebar-title">OAuth Consumer in CakePHP 2.0.5</span></a></li><li><a class="blog-sidebar-link is-current" href="/blog/posts/2011/09/smarter-images-in-jadu-cms/" aria-current="page"><span class="blog-sidebar-date">2011-09-02</span><span class="blog-sidebar-title">Smarter images in Jadu CMS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/coursefinder-2010-report/"><span class="blog-sidebar-date">2011-06-30</span><span class="blog-sidebar-title">Coursefinder 2010 report</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/building-a-killer-coursefinder/"><span class="blog-sidebar-date">2011-06-08</span><span class="blog-sidebar-title">Building a &#x27;killer coursefinder&#x27;</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/01/working-to-a-structured-development-process/"><span class="blog-sidebar-date">2011-01-05</span><span class="blog-sidebar-title">Working to a structured development process</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/12/my-year-in-moblogs/"><span class="blog-sidebar-date">2010-12-21</span><span class="blog-sidebar-title">My year in moblogs</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/06/playing-with-the-lumix-lx3/"><span class="blog-sidebar-date">2010-06-30</span><span class="blog-sidebar-title">Playing with the Lumix LX3</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/03/project52-fail/"><span class="blog-sidebar-date">2010-03-03</span><span class="blog-sidebar-title">Project52 fail</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/an-analogy-for-progressive-enhancement/"><span class="blog-sidebar-date">2010-02-15</span><span class="blog-sidebar-title">An analogy for progressive enhancement</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/quotes-from-richard-branson/"><span class="blog-sidebar-date">2010-02-01</span><span class="blog-sidebar-title">Quotes from Richard Branson</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/youre-missing-the-ipoint/"><span class="blog-sidebar-date">2010-01-28</span><span class="blog-sidebar-title">You&#x27;re missing the iPoint</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/using-phps-alternate-syntaxes-to-aid-code-readability/"><span class="blog-sidebar-date">2010-01-25</span><span class="blog-sidebar-title">Using PHP&#x27;s alternate syntaxes</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/redesign/"><span class="blog-sidebar-date">2010-01-18</span><span class="blog-sidebar-title">Redesigning Coffeepowered</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/nurturing-my-pet-projects/"><span class="blog-sidebar-date">2010-01-12</span><span class="blog-sidebar-title">Nurturing my pet projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/css-coding-standards/"><span class="blog-sidebar-date">2010-01-04</span><span class="blog-sidebar-title">CSS coding standards</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/encouraging-impulse-purchases/"><span class="blog-sidebar-date">2009-10-26</span><span class="blog-sidebar-title">Encouraging impulse purchases</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/quick-and-dirty-dropdown-pagination-in-cakephp/"><span class="blog-sidebar-date">2009-10-15</span><span class="blog-sidebar-title">Quick and dirty dropdown pagination in CakePHP</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/the-best-quotes-from-fowa/"><span class="blog-sidebar-date">2009-10-06</span><span class="blog-sidebar-title">The best quotes from FOWA</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/09/deliciously-timed-tweets/"><span class="blog-sidebar-date">2009-09-29</span><span class="blog-sidebar-title">Deliciously Timed Tweets</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/lose-the-snooze/"><span class="blog-sidebar-date">2009-08-21</span><span class="blog-sidebar-title">Lose the snooze</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/new-stylings/"><span class="blog-sidebar-date">2009-08-13</span><span class="blog-sidebar-title">New stylings</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/printable-logos/"><span class="blog-sidebar-date">2009-08-07</span><span class="blog-sidebar-title">Printable logos</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/featured-designers-scribbles/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Featured : Designers scribbles</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/meaningful-milestones/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Meaningful milestones</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/font-sizes-and-accessibility/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Font sizes and accessibility</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/contextual-css/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Contextual CSS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/colouring-in/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Colouring in</span></a></li></ol>
+            </section>
+        </aside>
+    
+        </div>
+    
+    </main>
+</body>
+</html>

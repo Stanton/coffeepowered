@@ -1,0 +1,50 @@
+services:
+  web:
+    image: nginxinc/nginx-unprivileged:1.27-alpine
+    container_name: coffeepowered-web
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    ports:
+      - "127.0.0.1:8081:8080"
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+      - /var/run
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./css:/usr/share/nginx/html/css:ro
+      - ./js:/usr/share/nginx/html/js:ro
+      - ./img:/usr/share/nginx/html/img:ro
+      - ./blog:/usr/share/nginx/html/blog:ro
+      - ./vendor/prism:/usr/share/nginx/html/vendor/prism:ro
+      - ./node_modules/font-awesome:/usr/share/nginx/html/vendor/font-awesome:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --header='Host: coffeepowered.co.uk' -O /dev/null http://127.0.0.1:8080 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: coffeepowered-tunnel
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    depends_on:
+      - web
+    command: tunnel --config /etc/cloudflared/config.yml run coffeepowered-site-v2
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./docker/cloudflared/config.yml:/etc/cloudflared/config.yml:ro
+      - ${HOME}/.cloudflared/f674a007-17b9-4b9b-ad11-704a42f1d415.json:/etc/cloudflared/credentials.json:ro

@@ -1,11 +1,18 @@
 {
   "name": "Coffeepowered",
   "version": "2.0.0",
+  "scripts": {
+    "build:css": "sass scss/main.scss css/main.css --style=expanded --no-source-map",
+    "watch:css": "sass --watch scss/main.scss:css/main.css --style=expanded --no-source-map"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Stanton/coffeepowered.git"
   },
   "dependencies": {
     "font-awesome": "^4.7.0"
+  },
+  "devDependencies": {
+    "sass": "^1.98.0"
   }
 }

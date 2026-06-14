@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Working to a structured development process | Coffeepowered</title>
+    <meta name="description" content="You might work on small projects or large scale developments, you might be the only person involved or you might work with many others, regardless of your...">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=20260419-2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/main.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism-line-numbers.min.css">
+    <script defer src="/vendor/prism/prism.js"></script>
+    <script defer src="/vendor/prism/prism-markup.min.js"></script>
+    <script defer src="/vendor/prism/prism-clike.min.js"></script>
+    <script defer src="/vendor/prism/prism-css.min.js"></script>
+    <script defer src="/vendor/prism/prism-javascript.min.js"></script>
+    <script defer src="/vendor/prism/prism-php.min.js"></script>
+    <script defer src="/vendor/prism/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <main class="page page-blog" id="top">
+        <header class="top-nav">
+            <a class="brand" href="/">Coffeepowered</a>
+            <nav class="top-nav-links" aria-label="Primary">
+                <a href="/">Home</a>
+                <a href="/blog/">Archive</a>
+            </nav>
+        </header>
+        
+        <div class="blog-post-layout">
+            <article class="blog-post blog-post-main blog-post-working-to-a-structured-development-process">
+                <h1>Working to a structured development process</h1>
+                <p class="blog-meta">2011-01-05</p>
+                <div class="blog-note"><p>This post has been restored from the original Coffeepowered archive. Content is preserved, but legacy layout, embeds, and media may not match the original presentation exactly.</p></div>
+                <div class="blog-body"><p>You might work on small projects or large scale developments, you might be the only person involved or you might work with many others, regardless of your situation, having a structured development process is essential.</p>
+
+<p>I work for the University of Leeds as a generalist designer/developer, a recent project of mine has been upgrading our institutional Content Management System to the latest version of the software, a task which had an extremely tight timescale which was met by using a structured development process.</p>
+
+<h3 id="mytoolbox">My toolbox</h3>
+
+<p>So let’s set the scene, I work within the Central IT Services’ Web Team and am the technical lead for the University of Leeds’ corporate website (www.leeds.ac.uk), this site runs on top of the Jadu Content Management System and was launched in September 2009. We have just performed a major upgrade of the core Jadu CMS which was turned around in a very short space of time, and it’s this upgrade project which is the basis for this post.</p>
+
+<div class="wp-caption aligncenter" id="attachment_576" style="width: 310px"><a href="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/University-of-Leeds1.jpg"><img src="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/University-of-Leeds1-300x239.jpg" alt="" title="University-of-Leeds" /></a>University of Leeds (www.leeds.ac.uk)</p>
+
+<p></div>For those of you wanting to know which apps and tools I use, here’s a quick rundown:</p>
+
+<ul>
+<li>iMac 21.5″ 3.2GHz Intel Core i3</li>
+<li><a href="http://macromates.com/">Textmate</a></li>
+<li>Terminal</li>
+<li><a href="http://www.mamp.info/en/index.html">MAMP</a> (local Apache/MySQL server)</li>
+<li><a href="http://www.sequelpro.com/&gt;Sequel Pro&lt;/a&gt; (MySQL OSX user interface)&lt;/li&gt;&lt;li&gt;&lt;a href="></a>GIT (Version Control System)</li>
+<li><a href="http://trac.edgewall.org/">Trac</a> (Project Management and Issue Tracking)</li>
+</ul>
+
+<h3 id="projectmanagementtools">Project management tools</h3>
+
+<p>There are a whole host of tools available which will allow you to manage your project, both free and paid-for. Within the Web Team, we use the Open Source ‘Trac’ Project, Trac may not be the prettiest piece of software ever written, but it’s extremely flexible through a plug-in architecture and being open source, we’ve moulded it to fit our exact needs as a team. The key features we use are issue tracking, milestones and source code management.</p>
+
+<blockquote>
+  <p>&ldquo;There are a whole host of tools available which will allow you to manage your project, both free and paid-for.&rdquo;</p>
+</blockquote>
+
+<p>As well as using Trac internally within our team we have opened up access to a couple of teams within the institution who work with us on the corporate project. The Central Communications team (Comms), for example, have the ability to assign and manage tickets, see the commit history and timeline and read the wiki, but don’t have access to the source code repositories or source browsing facility through Trac.</p>
+
+<h3 id="localstagingproductionakadevelopdebugdeploy">local > staging > production (aka develop > debug > deploy)</h3>
+
+<p>There are three separate environments which I use to develop for leeds.ac.uk. Firstly, all of the code I write is done on a local server which runs a complete standalone version of the code and database. This allows me to mess around as much as I want without any risk to the live site and database which runs on the production server where the live version of leeds.ac.uk lives.</p>
+
+<p>In between my local development server and the production server is the ’staging’ server, this is an identical environment to the production server (even running on the same physical hardware) and is accessed through a private URL. By running this staging server I can deploy code for the team to test, confident that this is identical to how the site will operate once deployed to the production server.</p>
+
+<p>The deployment is handled through the GIT version control system which is tied to our Trac system where we maintain a central source code repository (even though it’s not strictly needed with GIT, we still maintain a central repo for ‘disaster planning’), code is pushed from Local to Trac, then from Trac to Staging and ultimately from Trac to Live.</p>
+
+<h3 id="howitalltiedtogether">How it all tied together</h3>
+
+<p>During the upgrade project I worked with our internal project co-ordinator and the Comms team to define a set of milestone dates for the project, such as ‘testing’, ‘pre-launch’, ‘launch’ and ‘post launch’.</p>
+
+<p>We knew the date the site had to launch by was concrete, so worked backwards from there, with the pre-launch milestone set to the start of the week of launch, this contained any issues and tasks that needed to be completed before we could possibly go-live (such as a last minute content-freeze and migration from the currently live site to the upgraded site). Finally, the post-launch milestone allowed me to keep any tasks that weren’t directly related to the launch to be processed afterwards.</p>
+
+<blockquote>
+  <p>&ldquo;We knew the date the site had to launch by was concrete, <br />
+   so worked backwards from there&rdquo;</p>
+</blockquote>
+
+<p>We had a thorough round of testing in the weeks running up to launch, the task of testing was performed by Comms who were testing against a ‘release candidate’ build on the Staging server. They worked for a week going through every single page on the Release Candidate build and logged tickets for any bugs, whether they be for differences in layout or differences in content. This is a critical step and their eagle eyes spotted a wide range of issues, from missing/out of date content, to the fact that the breadcrumb trail was 2 pixels further to the right than it should be.</p>
+
+<p>These issues were all classified against a simple priority scale:</p>
+
+<ol>
+<li>Blocker (the site can’t possibly go live until this is fixed)  </li>
+<li>Critical (if this isn’t fixed, people may die)  </li>
+<li>Major (it’s a big problem, but no-one’s going to die)  </li>
+<li>Minor (this needs fixing at some point)  </li>
+<li>Trivial (no-one would probably notice except us)</li>
+</ol>
+
+<blockquote>
+  <p>&ldquo;a ‘critical’ issue may be seen as one which would cause the institution to cause severe confusion or lose money&rdquo;</p>
+</blockquote>
+
+<p>If you were to take into account the business considerations, a ‘critical’ issue may be seen as one which would cause the institution to cause severe confusion or lose money (such as printing an incorrect emergency phone number). Not all content is created equal, so a content difference on the Press Releases page might be classed as ‘Major’ while a page buried in the bowels of the site with a spelling error might be classed as ‘Minor’ or ‘Trivial’. It’s worth sitting down with the people who are going to be creating most of your tickets and defining what your priorities are to make sure that everything is not logged as high-priority to try and get them finished quicker.</p>
+
+<p>(Based on this project I may move to remove the Blocker priority, as nearly all critical issues could be considered blockers)</p>
+
+<p>I left the team alone for a week to perform their testing, only stepping in to fix any Blocker/Critical issues which would hamper their testing efforts and being on hand to answer any questions they had, after they were satisfied the entire site had been tested, their access to staging was revoked while I worked through all of the tickets assigned to the ‘Testing’ milestone. This process took 3 days for a couple of hundred issues, once the reported issue had been resolved the ticket was re-assigned to the owner for them to recheck the issue, and for them to close the ticket if it was fixed, or fail if it was still present.</p>
+
+<h3 id="makeyourtoolsworkforyou">Make your tools work for you</h3>
+
+<p>I am lucky to work with some extremely talented people, including a colleague who installed and maintains our Trac instance and implements some of the weird and wonderful ideas we have to make it more useful for us. One of the most used tweaks was to use the post-receive hooks of GIT to allow us to modify tickets based on the commit message.</p>
+
+<p>For example, I accept Ticket #356 which requires a code change to resolve. I make the required change to the code and commit this to my local repository with the following command:</p>
+
+<pre class="blog-code line-numbers language-php"><code class="language-php">git commit -m &quot;Fixes #356 - bug was caused by ... and fixed by ...&quot;</code></pre><p>When I next push my changes to Trac, the post-receive hook recognises the ‘Fixes #356′ part of the commit message, adds a comment to the ticket linking to the specific changeset and diff showing exactly what changed, and sets the ticket to ‘testing’ status, which then fires off an email to the ticket owner prompting them to test the fix and close the ticket if it’s resolved.</p>
+
+<p>I also communicated the progress of the project with the testing team by highlighting which version of the code the staging server was currently running:</p>
+
+<div class="wp-caption aligncenter" id="attachment_580" style="width: 580px"><a href="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/1H94dp.Screen+shot+2010-09-09+at+16-06-00.jpg"><img src="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/1H94dp.Screen+shot+2010-09-09+at+16-06-00.jpg" alt="" title="1H94dp.Screen+shot+2010-09-09+at+16-06-00" /></a>Code version</p>
+
+<p></div>This linked through to a summary changelog, which gave an outline of what had changed from version to version, clicking through would list precisely what had changed in the code and which tickets were fixed:</p>
+
+<div class="wp-caption aligncenter" id="attachment_582" style="width: 580px"><a href="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/1H974d.Screen+shot+2010-09-09+at+16-06-41.jpg"><img src="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/1H974d.Screen+shot+2010-09-09+at+16-06-41.jpg" alt="" title="1H974d.Screen+shot+2010-09-09+at+16-06-41" /></a>Trac changelog</p>
+
+<p></div>We projected the Trac roadmap screen in our office with an auto-refresh which let us watch the testing milestone gradually reach 100% completion as the Comms team signed off the fixed tickets (I’m a sucker for visualising the size and progress of the task). All of this communication regarding the process of the project was passive, it was only available if and when anyone needed to see it.</p>
+
+<div class="wp-caption aligncenter" id="attachment_583" style="width: 580px"><a href="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/700px_1283849005_1.jpg"><img src="https://web.archive.org/web/0im_/http://coffeepowered.co.uk/wp-content/uploads/2011/01/700px_1283849005_1.jpg" alt="" title="700px_1283849005_1" /></a>Projection of project progress</p>
+
+<p></div>### In conclusion</p>
+
+<p>It doesn’t matter what tools or software you use as long as you’re able to make them fit around the way you work. If a piece of software gets in the way of how you work then you should seriously consider either changing it, or (if possible) changing the way it works to better suit your needs. If you’re working with other people on a project, communication is essential. By keeping everyone involved up-to date you can reduce the amount of time needed for meetings and reach that magical milestone, getting sign off.</p></div>
+                <footer class="blog-footer">
+                    <div class="blog-actions">
+                        <p><a href="https://web.archive.org/web/20140713224505/http://coffeepowered.co.uk/2011/01/working-to-a-structured-development-process/"><i class="fa fa-link" aria-hidden="true"></i> Source capture</a></p>
+                        <p><a href="/blog/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to archive</a></p>
+                    </div>
+                    <nav class="blog-pager" aria-label="Archive post navigation"><a class="blog-adjacent prev" href="/blog/posts/2011/06/building-a-killer-coursefinder/"><span class="blog-adjacent-label">Newer Post</span><span class="blog-adjacent-title">Building a &#x27;killer coursefinder&#x27;</span></a><a class="blog-adjacent next" href="/blog/posts/2010/12/my-year-in-moblogs/"><span class="blog-adjacent-label">Older Post</span><span class="blog-adjacent-title">My year in moblogs</span></a></nav>
+                </footer>
+            </article>
+            
+        <aside class="blog-sidebar">
+            <section class="blog-sidebar-panel blog-profile-card" aria-label="Profile">
+                <figure class="blog-profile-media">
+                    <img src="/img/stanton.png" alt="Paul Stanton headshot">
+                </figure>
+                <div class="blog-profile-copy">
+                    <p class="blog-kicker">Paul Stanton</p>
+                    <h2>AI / Platform / UX</h2>
+                    <p>I build confidence, explainability, and sustainable scale across products and organisations.</p>
+                    <div class="blog-profile-actions">
+                        <a class="btn btn-primary" href="https://www.linkedin.com/in/paulstanton/">LinkedIn</a>
+                        <a class="btn" href="mailto:paul@coffeepowered.co.uk">Email</a>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-sidebar-panel" aria-label="Other archive posts">
+                <p class="blog-kicker">Other Posts</p>
+                <ol class="blog-sidebar-list"><li><a class="blog-sidebar-link" href="/blog/posts/2013/08/we-are-a-primitive-people/"><span class="blog-sidebar-date">2013-08-01</span><span class="blog-sidebar-title">We are a primitive people</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2013/06/build-what-it-is-you-want-to-build/"><span class="blog-sidebar-date">2013-06-24</span><span class="blog-sidebar-title">Build what it is you want to build</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/11/less-noise-texture-mixin/"><span class="blog-sidebar-date">2012-11-02</span><span class="blog-sidebar-title">Less noise texture mixin</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/02/twig-gr-how-i-learned-to-stop-worrying-and-ship-my-side-projects/"><span class="blog-sidebar-date">2012-02-06</span><span class="blog-sidebar-title">Twig.gr - How I learned to stop worrying and ship my side projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/01/oauth-consumer-in-cakephp-2-0-5/"><span class="blog-sidebar-date">2012-01-09</span><span class="blog-sidebar-title">OAuth Consumer in CakePHP 2.0.5</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/09/smarter-images-in-jadu-cms/"><span class="blog-sidebar-date">2011-09-02</span><span class="blog-sidebar-title">Smarter images in Jadu CMS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/coursefinder-2010-report/"><span class="blog-sidebar-date">2011-06-30</span><span class="blog-sidebar-title">Coursefinder 2010 report</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/building-a-killer-coursefinder/"><span class="blog-sidebar-date">2011-06-08</span><span class="blog-sidebar-title">Building a &#x27;killer coursefinder&#x27;</span></a></li><li><a class="blog-sidebar-link is-current" href="/blog/posts/2011/01/working-to-a-structured-development-process/" aria-current="page"><span class="blog-sidebar-date">2011-01-05</span><span class="blog-sidebar-title">Working to a structured development process</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/12/my-year-in-moblogs/"><span class="blog-sidebar-date">2010-12-21</span><span class="blog-sidebar-title">My year in moblogs</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/06/playing-with-the-lumix-lx3/"><span class="blog-sidebar-date">2010-06-30</span><span class="blog-sidebar-title">Playing with the Lumix LX3</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/03/project52-fail/"><span class="blog-sidebar-date">2010-03-03</span><span class="blog-sidebar-title">Project52 fail</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/an-analogy-for-progressive-enhancement/"><span class="blog-sidebar-date">2010-02-15</span><span class="blog-sidebar-title">An analogy for progressive enhancement</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/quotes-from-richard-branson/"><span class="blog-sidebar-date">2010-02-01</span><span class="blog-sidebar-title">Quotes from Richard Branson</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/youre-missing-the-ipoint/"><span class="blog-sidebar-date">2010-01-28</span><span class="blog-sidebar-title">You&#x27;re missing the iPoint</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/using-phps-alternate-syntaxes-to-aid-code-readability/"><span class="blog-sidebar-date">2010-01-25</span><span class="blog-sidebar-title">Using PHP&#x27;s alternate syntaxes</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/redesign/"><span class="blog-sidebar-date">2010-01-18</span><span class="blog-sidebar-title">Redesigning Coffeepowered</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/nurturing-my-pet-projects/"><span class="blog-sidebar-date">2010-01-12</span><span class="blog-sidebar-title">Nurturing my pet projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/css-coding-standards/"><span class="blog-sidebar-date">2010-01-04</span><span class="blog-sidebar-title">CSS coding standards</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/encouraging-impulse-purchases/"><span class="blog-sidebar-date">2009-10-26</span><span class="blog-sidebar-title">Encouraging impulse purchases</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/quick-and-dirty-dropdown-pagination-in-cakephp/"><span class="blog-sidebar-date">2009-10-15</span><span class="blog-sidebar-title">Quick and dirty dropdown pagination in CakePHP</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/the-best-quotes-from-fowa/"><span class="blog-sidebar-date">2009-10-06</span><span class="blog-sidebar-title">The best quotes from FOWA</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/09/deliciously-timed-tweets/"><span class="blog-sidebar-date">2009-09-29</span><span class="blog-sidebar-title">Deliciously Timed Tweets</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/lose-the-snooze/"><span class="blog-sidebar-date">2009-08-21</span><span class="blog-sidebar-title">Lose the snooze</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/new-stylings/"><span class="blog-sidebar-date">2009-08-13</span><span class="blog-sidebar-title">New stylings</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/printable-logos/"><span class="blog-sidebar-date">2009-08-07</span><span class="blog-sidebar-title">Printable logos</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/featured-designers-scribbles/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Featured : Designers scribbles</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/meaningful-milestones/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Meaningful milestones</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/font-sizes-and-accessibility/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Font sizes and accessibility</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/contextual-css/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Contextual CSS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/colouring-in/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Colouring in</span></a></li></ol>
+            </section>
+        </aside>
+    
+        </div>
+    
+    </main>
+</body>
+</html>
