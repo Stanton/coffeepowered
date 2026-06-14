@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Less noise texture mixin | Coffeepowered</title>
+    <meta name="description" content="If you’d like to add a little bit of texture to your designs adding a subtle amount of noise can work wonders. By using a repeated monochrome noise png as...">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=20260419-2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/main.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism-line-numbers.min.css">
+    <script defer src="/vendor/prism/prism.js"></script>
+    <script defer src="/vendor/prism/prism-markup.min.js"></script>
+    <script defer src="/vendor/prism/prism-clike.min.js"></script>
+    <script defer src="/vendor/prism/prism-css.min.js"></script>
+    <script defer src="/vendor/prism/prism-javascript.min.js"></script>
+    <script defer src="/vendor/prism/prism-php.min.js"></script>
+    <script defer src="/vendor/prism/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <main class="page page-blog" id="top">
+        <header class="top-nav">
+            <a class="brand" href="/">Coffeepowered</a>
+            <nav class="top-nav-links" aria-label="Primary">
+                <a href="/">Home</a>
+                <a href="/blog/">Archive</a>
+            </nav>
+        </header>
+        
+        <div class="blog-post-layout">
+            <article class="blog-post blog-post-main blog-post-less-noise-texture-mixin">
+                <h1>Less noise texture mixin</h1>
+                <p class="blog-meta">2012-11-02</p>
+                <div class="blog-note"><p>This post has been restored from the original Coffeepowered archive. Content is preserved, but legacy layout, embeds, and media may not match the original presentation exactly.</p></div>
+                <div class="blog-body"><p>If you’d like to add a little bit of texture to your designs adding a subtle amount of noise can work wonders. By using a repeated monochrome noise png as a background image you can add noise to any element no matter what colour by using opacity to blend it in.</p>
+
+<p><a href="/blog/assets/uploads/2012/11/noise.png"><img src="/blog/assets/uploads/2012/11/noise.png" alt="" title="noise" /></a></p>
+
+<p>The mixin below uses a base64 encoded version in the stylesheet which means you don’t have to worry about including the file on your server, the one trade-off to consider is that the base64 encoded image data weighs in at 2kb and the binary .png version is 1.5kb. I personally prefer the cleanliness of having the mixin self-contained, but each to their own.</p>
+
+<h3 id="themixin">The Mixin</h3>
+
+<p>We use a parametric mixin which has a sensible default opacity which you can change to suit your design and overridden when you need.</p>
+
+<pre class="blog-code line-numbers language-css"><code class="language-css">/**
+
+  * Adds a transparent noise texture as a background image to a given element.
+
+  * Texture strength can be controlled with @opacity parameter.
+
+  * By Paul Stanton (www.coffeepowered.co.uk)
+
+  */
+
+.noise(@opacity: .3) {
+
+   &amp;:before {
+
+   bottom:0;
+
+   content:&quot;&quot;;
+
+   left:0;
+
+   opacity:@opacity;
+
+   position:absolute;
+
+   right:0;
+
+   top:0;
+
+  background-image:url(data:image/png;base64,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);
+
+   }
+
+}</code></pre><h3>Usage</h3>
+
+<p>To apply noise to your element, just invoke the mixin!</p>
+
+<pre class="blog-code line-numbers language-css"><code class="language-css">.my-element{
+
+   position:relative;
+
+   .noise();
+
+}</code></pre><p>And override the opacity value if you wish</p>
+
+<pre class="blog-code line-numbers language-css"><code class="language-css">.my-element{
+
+   position:relative;
+
+   .noise(.5);
+
+}</code></pre><a href="/blog/assets/uploads/2012/11/Screen-Shot-2012-11-02-at-21.57.00.png"><img src="/blog/assets/uploads/2012/11/Screen-Shot-2012-11-02-at-21.57.00.png" alt="" title="Screen Shot 2012-11-02 at 21.57.00" /></a></p>
+
+<p>Here’s an example of two elements, one without and one with noise. It’s subtle, but that’s what I need for my projects, you could use a noise image with a higher contrast if you wish.</p>
+
+<p>Thats it! If you use it, drop me a line!</p></div>
+                <footer class="blog-footer">
+                    <div class="blog-actions">
+                        <p><a href="https://web.archive.org/web/20140713224505/http://coffeepowered.co.uk/2012/11/less-noise-texture-mixin/"><i class="fa fa-link" aria-hidden="true"></i> Source capture</a></p>
+                        <p><a href="/blog/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to archive</a></p>
+                    </div>
+                    <nav class="blog-pager" aria-label="Archive post navigation"><a class="blog-adjacent prev" href="/blog/posts/2013/06/build-what-it-is-you-want-to-build/"><span class="blog-adjacent-label">Newer Post</span><span class="blog-adjacent-title">Build what it is you want to build</span></a><a class="blog-adjacent next" href="/blog/posts/2012/02/twig-gr-how-i-learned-to-stop-worrying-and-ship-my-side-projects/"><span class="blog-adjacent-label">Older Post</span><span class="blog-adjacent-title">Twig.gr - How I learned to stop worrying and ship my side projects</span></a></nav>
+                </footer>
+            </article>
+            
+        <aside class="blog-sidebar">
+            <section class="blog-sidebar-panel blog-profile-card" aria-label="Profile">
+                <figure class="blog-profile-media">
+                    <img src="/img/stanton.png" alt="Paul Stanton headshot">
+                </figure>
+                <div class="blog-profile-copy">
+                    <p class="blog-kicker">Paul Stanton</p>
+                    <h2>AI / Platform / UX</h2>
+                    <p>I build confidence, explainability, and sustainable scale across products and organisations.</p>
+                    <div class="blog-profile-actions">
+                        <a class="btn btn-primary" href="https://www.linkedin.com/in/paulstanton/">LinkedIn</a>
+                        <a class="btn" href="mailto:paul@coffeepowered.co.uk">Email</a>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-sidebar-panel" aria-label="Other archive posts">
+                <p class="blog-kicker">Other Posts</p>
+                <ol class="blog-sidebar-list"><li><a class="blog-sidebar-link" href="/blog/posts/2013/08/we-are-a-primitive-people/"><span class="blog-sidebar-date">2013-08-01</span><span class="blog-sidebar-title">We are a primitive people</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2013/06/build-what-it-is-you-want-to-build/"><span class="blog-sidebar-date">2013-06-24</span><span class="blog-sidebar-title">Build what it is you want to build</span></a></li><li><a class="blog-sidebar-link is-current" href="/blog/posts/2012/11/less-noise-texture-mixin/" aria-current="page"><span class="blog-sidebar-date">2012-11-02</span><span class="blog-sidebar-title">Less noise texture mixin</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/02/twig-gr-how-i-learned-to-stop-worrying-and-ship-my-side-projects/"><span class="blog-sidebar-date">2012-02-06</span><span class="blog-sidebar-title">Twig.gr - How I learned to stop worrying and ship my side projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/01/oauth-consumer-in-cakephp-2-0-5/"><span class="blog-sidebar-date">2012-01-09</span><span class="blog-sidebar-title">OAuth Consumer in CakePHP 2.0.5</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/09/smarter-images-in-jadu-cms/"><span class="blog-sidebar-date">2011-09-02</span><span class="blog-sidebar-title">Smarter images in Jadu CMS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/coursefinder-2010-report/"><span class="blog-sidebar-date">2011-06-30</span><span class="blog-sidebar-title">Coursefinder 2010 report</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/building-a-killer-coursefinder/"><span class="blog-sidebar-date">2011-06-08</span><span class="blog-sidebar-title">Building a &#x27;killer coursefinder&#x27;</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/01/working-to-a-structured-development-process/"><span class="blog-sidebar-date">2011-01-05</span><span class="blog-sidebar-title">Working to a structured development process</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/12/my-year-in-moblogs/"><span class="blog-sidebar-date">2010-12-21</span><span class="blog-sidebar-title">My year in moblogs</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/06/playing-with-the-lumix-lx3/"><span class="blog-sidebar-date">2010-06-30</span><span class="blog-sidebar-title">Playing with the Lumix LX3</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/03/project52-fail/"><span class="blog-sidebar-date">2010-03-03</span><span class="blog-sidebar-title">Project52 fail</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/an-analogy-for-progressive-enhancement/"><span class="blog-sidebar-date">2010-02-15</span><span class="blog-sidebar-title">An analogy for progressive enhancement</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/quotes-from-richard-branson/"><span class="blog-sidebar-date">2010-02-01</span><span class="blog-sidebar-title">Quotes from Richard Branson</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/youre-missing-the-ipoint/"><span class="blog-sidebar-date">2010-01-28</span><span class="blog-sidebar-title">You&#x27;re missing the iPoint</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/using-phps-alternate-syntaxes-to-aid-code-readability/"><span class="blog-sidebar-date">2010-01-25</span><span class="blog-sidebar-title">Using PHP&#x27;s alternate syntaxes</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/redesign/"><span class="blog-sidebar-date">2010-01-18</span><span class="blog-sidebar-title">Redesigning Coffeepowered</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/nurturing-my-pet-projects/"><span class="blog-sidebar-date">2010-01-12</span><span class="blog-sidebar-title">Nurturing my pet projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/css-coding-standards/"><span class="blog-sidebar-date">2010-01-04</span><span class="blog-sidebar-title">CSS coding standards</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/encouraging-impulse-purchases/"><span class="blog-sidebar-date">2009-10-26</span><span class="blog-sidebar-title">Encouraging impulse purchases</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/quick-and-dirty-dropdown-pagination-in-cakephp/"><span class="blog-sidebar-date">2009-10-15</span><span class="blog-sidebar-title">Quick and dirty dropdown pagination in CakePHP</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/the-best-quotes-from-fowa/"><span class="blog-sidebar-date">2009-10-06</span><span class="blog-sidebar-title">The best quotes from FOWA</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/09/deliciously-timed-tweets/"><span class="blog-sidebar-date">2009-09-29</span><span class="blog-sidebar-title">Deliciously Timed Tweets</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/lose-the-snooze/"><span class="blog-sidebar-date">2009-08-21</span><span class="blog-sidebar-title">Lose the snooze</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/new-stylings/"><span class="blog-sidebar-date">2009-08-13</span><span class="blog-sidebar-title">New stylings</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/printable-logos/"><span class="blog-sidebar-date">2009-08-07</span><span class="blog-sidebar-title">Printable logos</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/featured-designers-scribbles/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Featured : Designers scribbles</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/meaningful-milestones/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Meaningful milestones</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/font-sizes-and-accessibility/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Font sizes and accessibility</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/contextual-css/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Contextual CSS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/colouring-in/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Colouring in</span></a></li></ol>
+            </section>
+        </aside>
+    
+        </div>
+    
+    </main>
+</body>
+</html>

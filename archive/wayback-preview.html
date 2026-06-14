@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coffeepowered Archive Preview</title>
+  <style>
+    :root {
+      --paper: #f4efe5;
+      --ink: #1f272a;
+      --muted: #556266;
+      --line: #b8aea1;
+      --cyan: #2f98a8;
+      --link: #006f7d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        repeating-linear-gradient(0deg, rgba(31,39,42,.018) 0, rgba(31,39,42,.018) 1px, transparent 1px, transparent 5px),
+        linear-gradient(180deg, #f8f4ec 0%, var(--paper) 52%, #ebe3d4 100%);
+    }
+    main {
+      width: min(1040px, 94vw);
+      margin: 0 auto;
+      padding: 2rem 0 4rem;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      color: #333;
+    }
+    h1 { font-size: clamp(2.2rem, 6vw, 4rem); }
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      padding-bottom: .45rem;
+      border-bottom: 1px solid var(--ink);
+    }
+    p { line-height: 1.6; color: var(--muted); }
+    a { color: var(--link); }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .8rem;
+      margin: 1.25rem 0 2rem;
+    }
+    .meta div {
+      padding: .75rem 0;
+      border-top: 1px solid var(--line);
+      font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+      text-transform: uppercase;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      color: #333;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: .9rem;
+      margin-top: 1rem;
+    }
+    .card {
+      padding: .9rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .card p { margin: .55rem 0 0; }
+    .card small {
+      display: block;
+      margin-top: .55rem;
+      color: var(--muted);
+      font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+      text-transform: uppercase;
+      font-size: .7rem;
+      letter-spacing: .08em;
+    }
+    .status-ok { color: #2f6f58; }
+    .status-missing { color: #8a4f20; }
+    .exports {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Coffeepowered Archive Preview</h1>
+    <p>Local preview only. This page is not part of the public site. It points at recovered Wayback material and the local exports generated from it.</p>
+    <div class="meta">
+      <div>Recovered posts<br><strong>21 full</strong></div>
+      <div>Partial recovery<br><strong>2 excerpt-only</strong></div>
+      <div>Exports<br><strong>Markdown + CSV</strong></div>
+    </div>
+
+    <h2>Recovered Highlights</h2>
+    <div class="cards">
+      <article class="card">
+        <h3>We are a primitive people</h3>
+        <p>A reflection on simplicity, craft, and technical change in design.</p>
+        <p><a href="https://web.archive.org/web/20140713224505/http://coffeepowered.co.uk/2013/08/we_are_a_primitive_people/">Open Wayback post</a></p>
+        <small class="status-ok">Recovered</small>
+      </article>
+      <article class="card">
+        <h3>Less noise texture mixin</h3>
+        <p>A practical UI texture post with a self-contained LESS mixin.</p>
+        <p><a href="https://web.archive.org/web/20140713224505/http://coffeepowered.co.uk/2012/11/less-noise-texture-mixin/">Open Wayback post</a></p>
+        <small class="status-ok">Recovered</small>
+      </article>
+      <article class="card">
+        <h3>Font sizes and accessibility</h3>
+        <p>An early accessibility argument for elastic layouts and user control.</p>
+        <p><a href="https://web.archive.org/web/20100312135832/http://coffeepowered.co.uk/2008/11/font-sizes-and-accessibility/">Open Wayback post</a></p>
+        <small class="status-ok">Recovered</small>
+      </article>
+      <article class="card">
+        <h3>Contextual CSS</h3>
+        <p>Context-sensitive theming in a CMS without duplicating shared rules.</p>
+        <p><a href="https://web.archive.org/web/20100312150549/http://coffeepowered.co.uk/2008/11/contextual-css/">Open Wayback post</a></p>
+        <small class="status-ok">Recovered</small>
+      </article>
+      <article class="card">
+        <h3>Lose the snooze</h3>
+        <p>Recovered from the August 2009 monthly archive excerpt: a post about morning fatigue, sleep habits, and trying to get more out of the day through practical life-hacking.</p>
+        <p><a href="https://web.archive.org/web/20100324172343/http://coffeepowered.co.uk/2009/08/">Open monthly archive excerpt</a></p>
+        <small class="status-missing">Excerpt only</small>
+      </article>
+      <article class="card">
+        <h3>Featured : Designers scribbles</h3>
+        <p>Recovered from the August 2009 monthly archive excerpt: a short note about your moleskine scribbles being featured on Niki Brown’s Design O’Blog.</p>
+        <p><a href="https://web.archive.org/web/20100324172343/http://coffeepowered.co.uk/2009/08/">Open monthly archive excerpt</a></p>
+        <small class="status-missing">Excerpt only</small>
+      </article>
+    </div>
+
+    <h2>Local Exports</h2>
+    <div class="exports">
+      <p><a href="coffeepowered-wayback-archive.md">Markdown archive export</a></p>
+      <p><a href="coffeepowered-wayback-archive.csv">CSV index export</a></p>
+    </div>
+  </main>
+</body>
+</html>

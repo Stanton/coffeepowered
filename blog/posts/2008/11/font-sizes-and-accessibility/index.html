@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Font sizes and accessibility | Coffeepowered</title>
+    <meta name="description" content="There’s been a common query pushed my way recently, asking whether the font size used on a recent project was too small, and may pose an accessibility issu...">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg?v=20260419-2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/main.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/font-awesome/css/font-awesome.min.css?v=20260419-2">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/prism/prism-line-numbers.min.css">
+    <script defer src="/vendor/prism/prism.js"></script>
+    <script defer src="/vendor/prism/prism-markup.min.js"></script>
+    <script defer src="/vendor/prism/prism-clike.min.js"></script>
+    <script defer src="/vendor/prism/prism-css.min.js"></script>
+    <script defer src="/vendor/prism/prism-javascript.min.js"></script>
+    <script defer src="/vendor/prism/prism-php.min.js"></script>
+    <script defer src="/vendor/prism/prism-line-numbers.min.js"></script>
+</head>
+<body>
+    <main class="page page-blog" id="top">
+        <header class="top-nav">
+            <a class="brand" href="/">Coffeepowered</a>
+            <nav class="top-nav-links" aria-label="Primary">
+                <a href="/">Home</a>
+                <a href="/blog/">Archive</a>
+            </nav>
+        </header>
+        
+        <div class="blog-post-layout">
+            <article class="blog-post blog-post-main blog-post-font-sizes-and-accessibility">
+                <h1>Font sizes and accessibility</h1>
+                <p class="blog-meta">2008-11-18</p>
+                <div class="blog-note"><p>This post has been restored from the original Coffeepowered archive. Content is preserved, but legacy layout, embeds, and media may not match the original presentation exactly.</p></div>
+                <div class="blog-body"><p>There’s been a common query pushed my way recently, asking whether the font size used on a recent project was too small, and may pose an accessibility issue. From what I gather, each person who posed this query had good eyesight, and could read the text perfectly, they simply believed it may be an issue for other people.</p>
+
+<p>The fact that I’m hearing more of this type of query shows that there’s an increased awareness of accessibility issues, which is fantastic, the problem is that while people are aware there <em>could</em> be an issue, most people aren’t sure <em>if</em> there is an issue. So the question i’d like to answer is &ldquo;when does font size become an accessibility issue?&rdquo;.</p>
+
+<h3 id="thelargefontmyth">The Large Font Myth</h3>
+
+<p>It is a myth that all websites must have large font sizes in order to be accessible, possibly fueled by increasing screen sizes and resolutions, the (arguable) death of 800×600 resolutions and the recent &ldquo;web 2.0″ design trend where sites commonly feature supersized text, forms and buttons, we’ve seen this big-type trend on a multitude of sites. Early versions of the recent <a href="http://www.bbc.co.uk/" title="BBC Redesign">BBC Redesign</a> featured even larger fonts than the relatively large ones that currently feature.</p>
+
+<p>The useage of small fonts can cause problems for certain users when they are too small to be reliably read, most of the time we’re concerned that the user may suffer from some form of visual impairment, wether through naturally poor eyesight, disability or old age, but there is also the users context to cater for, where the user may not be sat at a regular desktop computer, but viewing the site on a handheld mobile device, or the site may be projected onto a large screen at a distance to the user, or through a games console on a regular TV set at a lower resolution than a computer monitor.</p>
+
+<p>The main accessibility issue for small fonts comes with the use of fixed font sizes, where the size is specified as an exact pixel size. If the text is set to a pixel size, older browsers cannot enlarge this text. To ensure text can be resized within the browser, we specify fonts as ‘relative’ sizes either in <a href="http://en.wikipedia.org/wiki/Em_%28typography%29" title="EM's">EM’s</a> or percentage sizes (there’s also <a href="http://en.wikipedia.org/wiki/Point_%28typography%29" title="point sizes">point sizes</a> and size keywords, but we rarely use those due to inconsistent sizing across browsers).</p>
+
+<p>The ISS Web Team conforms to various accessibility standards, such as <a href="http://www.w3.org/TR/WCAG20/" title="WCAG">WCAG</a> (at a AA compliance level) and <a href="http://www.opsi.gov.uk/ACTS/acts2001/ukpga_20010010_en_1" title="SENDA">SENDA</a> neither of which place any restrictions on minimum font sizes, but do specify that the text must be resizeable upto 200% without loss of functionality*. This, of course, is perfectly possible through the users browser.</p>
+
+<p><small>*I refer to the 2.0 version of the WCAG guidelines, which at the time of writing has moved to final recommendation status, and should be in effect towards the end of 2008.</small></p>
+
+<h3 id="resizingtext">Resizing text</h3>
+
+<p>All browsers provide functionality to easily change the font size to the users preference, the common shortcut for this function is to hold down the CTRL key and scroll the mousewheel or press the +/- keys (command &amp; scroll or +/- on Mac). While this is a common feature, there are differences in this functionality across the browser range.</p>
+
+<p>Older browsers such as Internet Explorer 6 and Firefox 2 scale the text only, leaving images and page layout in their normal sizes, the site has to have been designed to cope with expanding text so as not to break the layout or destroy the content. This is commonly referred to ‘elastic’ layout. Elastic layouts are crucially important in modern web design and a deciding factor in how accessible pages are once the text has been resized, referring back to the <a href="http://www.w3.org/TR/WCAG20/#visual-audio-contrast" title="1.4.4 guideline">1.4.4 guideline</a> of the WCAG2.0 specification.</p>
+
+<p>The latest releases of most modern browsers now support ‘full page zoom’ technology, this causes the whole website to be scaled based on user preferences. Including layout and imagery meaning that in these browsers the layout no longer has to be elastic as the whole site is enlarged, or reduced to suit, however layouts and content containers should always be designed to be elastic, as older browsers such as IE6 and various mobile browsers do not, and will never support full page zoom.</p>
+
+<h3 id="isthereanaccessibilityissue">Is there an accessibility issue?</h3>
+
+<p>The mechanisms I’ve detailed allow any user to resize webpage text to suit their preferences, whether visually impaired or not. Through our design work here in the Web Team we always set the default font to a suitable size in order to be readable by the vast majority of users, ensuring than the content can be easily modified to suit user needs, rather that attempting to second-guess every user scenario.</p>
+
+<p>To answer my earlier question of &ldquo;When does font size become an accessibility issue&rdquo; My answer is that as Web Designers we must deliver the content through a design which will accomodate the preferences of our users, and be flexible enough to cope with whatever they decide to throw at it, wether they require larger fonts, higher contrast layouts or for the content to be read out loud through a screen reader, or provided via a tactile interface such as a brail printer. There is no clear rule which defines the &ldquo;best minimum font size&rdquo; as that’s a question only our users can answer for themselves, as long as it can be changed to suit their preferences, there is no accessibility issue.</p></div>
+                <footer class="blog-footer">
+                    <div class="blog-actions">
+                        <p><a href="https://web.archive.org/web/20140713224505/http://coffeepowered.co.uk/2008/11/font-sizes-and-accessibility/"><i class="fa fa-link" aria-hidden="true"></i> Source capture</a></p>
+                        <p><a href="/blog/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to archive</a></p>
+                    </div>
+                    <nav class="blog-pager" aria-label="Archive post navigation"><a class="blog-adjacent prev" href="/blog/posts/2009/08/meaningful-milestones/"><span class="blog-adjacent-label">Newer Post</span><span class="blog-adjacent-title">Meaningful milestones</span></a><a class="blog-adjacent next" href="/blog/posts/2008/11/contextual-css/"><span class="blog-adjacent-label">Older Post</span><span class="blog-adjacent-title">Contextual CSS</span></a></nav>
+                </footer>
+            </article>
+            
+        <aside class="blog-sidebar">
+            <section class="blog-sidebar-panel blog-profile-card" aria-label="Profile">
+                <figure class="blog-profile-media">
+                    <img src="/img/stanton.png" alt="Paul Stanton headshot">
+                </figure>
+                <div class="blog-profile-copy">
+                    <p class="blog-kicker">Paul Stanton</p>
+                    <h2>AI / Platform / UX</h2>
+                    <p>I build confidence, explainability, and sustainable scale across products and organisations.</p>
+                    <div class="blog-profile-actions">
+                        <a class="btn btn-primary" href="https://www.linkedin.com/in/paulstanton/">LinkedIn</a>
+                        <a class="btn" href="mailto:paul@coffeepowered.co.uk">Email</a>
+                    </div>
+                </div>
+            </section>
+            <section class="blog-sidebar-panel" aria-label="Other archive posts">
+                <p class="blog-kicker">Other Posts</p>
+                <ol class="blog-sidebar-list"><li><a class="blog-sidebar-link" href="/blog/posts/2013/08/we-are-a-primitive-people/"><span class="blog-sidebar-date">2013-08-01</span><span class="blog-sidebar-title">We are a primitive people</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2013/06/build-what-it-is-you-want-to-build/"><span class="blog-sidebar-date">2013-06-24</span><span class="blog-sidebar-title">Build what it is you want to build</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/11/less-noise-texture-mixin/"><span class="blog-sidebar-date">2012-11-02</span><span class="blog-sidebar-title">Less noise texture mixin</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/02/twig-gr-how-i-learned-to-stop-worrying-and-ship-my-side-projects/"><span class="blog-sidebar-date">2012-02-06</span><span class="blog-sidebar-title">Twig.gr - How I learned to stop worrying and ship my side projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2012/01/oauth-consumer-in-cakephp-2-0-5/"><span class="blog-sidebar-date">2012-01-09</span><span class="blog-sidebar-title">OAuth Consumer in CakePHP 2.0.5</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/09/smarter-images-in-jadu-cms/"><span class="blog-sidebar-date">2011-09-02</span><span class="blog-sidebar-title">Smarter images in Jadu CMS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/coursefinder-2010-report/"><span class="blog-sidebar-date">2011-06-30</span><span class="blog-sidebar-title">Coursefinder 2010 report</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/06/building-a-killer-coursefinder/"><span class="blog-sidebar-date">2011-06-08</span><span class="blog-sidebar-title">Building a &#x27;killer coursefinder&#x27;</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2011/01/working-to-a-structured-development-process/"><span class="blog-sidebar-date">2011-01-05</span><span class="blog-sidebar-title">Working to a structured development process</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/12/my-year-in-moblogs/"><span class="blog-sidebar-date">2010-12-21</span><span class="blog-sidebar-title">My year in moblogs</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/06/playing-with-the-lumix-lx3/"><span class="blog-sidebar-date">2010-06-30</span><span class="blog-sidebar-title">Playing with the Lumix LX3</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/03/project52-fail/"><span class="blog-sidebar-date">2010-03-03</span><span class="blog-sidebar-title">Project52 fail</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/an-analogy-for-progressive-enhancement/"><span class="blog-sidebar-date">2010-02-15</span><span class="blog-sidebar-title">An analogy for progressive enhancement</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/02/quotes-from-richard-branson/"><span class="blog-sidebar-date">2010-02-01</span><span class="blog-sidebar-title">Quotes from Richard Branson</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/youre-missing-the-ipoint/"><span class="blog-sidebar-date">2010-01-28</span><span class="blog-sidebar-title">You&#x27;re missing the iPoint</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/using-phps-alternate-syntaxes-to-aid-code-readability/"><span class="blog-sidebar-date">2010-01-25</span><span class="blog-sidebar-title">Using PHP&#x27;s alternate syntaxes</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/redesign/"><span class="blog-sidebar-date">2010-01-18</span><span class="blog-sidebar-title">Redesigning Coffeepowered</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/nurturing-my-pet-projects/"><span class="blog-sidebar-date">2010-01-12</span><span class="blog-sidebar-title">Nurturing my pet projects</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2010/01/css-coding-standards/"><span class="blog-sidebar-date">2010-01-04</span><span class="blog-sidebar-title">CSS coding standards</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/encouraging-impulse-purchases/"><span class="blog-sidebar-date">2009-10-26</span><span class="blog-sidebar-title">Encouraging impulse purchases</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/quick-and-dirty-dropdown-pagination-in-cakephp/"><span class="blog-sidebar-date">2009-10-15</span><span class="blog-sidebar-title">Quick and dirty dropdown pagination in CakePHP</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/10/the-best-quotes-from-fowa/"><span class="blog-sidebar-date">2009-10-06</span><span class="blog-sidebar-title">The best quotes from FOWA</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/09/deliciously-timed-tweets/"><span class="blog-sidebar-date">2009-09-29</span><span class="blog-sidebar-title">Deliciously Timed Tweets</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/lose-the-snooze/"><span class="blog-sidebar-date">2009-08-21</span><span class="blog-sidebar-title">Lose the snooze</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/new-stylings/"><span class="blog-sidebar-date">2009-08-13</span><span class="blog-sidebar-title">New stylings</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/printable-logos/"><span class="blog-sidebar-date">2009-08-07</span><span class="blog-sidebar-title">Printable logos</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/featured-designers-scribbles/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Featured : Designers scribbles</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2009/08/meaningful-milestones/"><span class="blog-sidebar-date">2009-08-06</span><span class="blog-sidebar-title">Meaningful milestones</span></a></li><li><a class="blog-sidebar-link is-current" href="/blog/posts/2008/11/font-sizes-and-accessibility/" aria-current="page"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Font sizes and accessibility</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/contextual-css/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Contextual CSS</span></a></li><li><a class="blog-sidebar-link" href="/blog/posts/2008/11/colouring-in/"><span class="blog-sidebar-date">2008-11-18</span><span class="blog-sidebar-title">Colouring in</span></a></li></ol>
+            </section>
+        </aside>
+    
+        </div>
+    
+    </main>
+</body>
+</html>

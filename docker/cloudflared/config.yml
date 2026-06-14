@@ -1,0 +1,8 @@
+tunnel: f674a007-17b9-4b9b-ad11-704a42f1d415
+credentials-file: /etc/cloudflared/credentials.json
+ingress:
+  - hostname: coffeepowered.co.uk
+    service: http://web:8080
+  - hostname: www.coffeepowered.co.uk
+    service: http://web:8080
+  - service: http_status:404

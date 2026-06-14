@@ -1,0 +1,127 @@
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+@media (max-width: 940px) {
+    body {
+        font-size: 16px;
+    }
+
+    .top-nav {
+        position: static;
+        padding-top: 0.56rem;
+        padding-bottom: 0.56rem;
+        align-items: flex-start;
+    }
+
+    .top-nav-links {
+        width: 100%;
+        gap: 0.45rem;
+    }
+
+    .top-nav-links a {
+        font-size: 0.7rem;
+        padding: 0.28rem 0.4rem;
+    }
+
+    .two-col-layout {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+    }
+
+    .blog-post-layout {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+    }
+
+    .hero-compact {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 0.9rem;
+    }
+
+    .hero-media {
+        width: min(42vw, 190px);
+        max-width: 190px;
+        margin-inline: auto;
+    }
+
+    h1 {
+        font-size: clamp(2.1rem, 13vw, 3.3rem);
+    }
+
+    .hero-content {
+        padding: 0;
+    }
+
+    .hero-facts {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-facts article {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding-top: 0.5rem;
+        padding-left: 0;
+    }
+
+    .work-spread,
+    .writing-spread,
+    .blog-summary,
+    .blog-pager {
+        grid-template-columns: 1fr;
+    }
+
+    .side-feed {
+        position: static;
+    }
+
+    .blog-sidebar {
+        position: static;
+    }
+
+    .quote-spread {
+        padding: 0;
+        margin: 0;
+    }
+
+    .quote-block {
+        padding-left: 0.95rem;
+    }
+
+    .quote-text {
+        font-size: clamp(1.1rem, 6vw, 1.5rem);
+    }
+
+    .feed-list {
+        --timeline-x: 0.8rem;
+        --timeline-dot: 0.84rem;
+        gap: 1.15rem;
+    }
+
+    .feed-item {
+        padding-left: 1.75rem;
+        padding-bottom: 1rem;
+    }
+
+    .blog-adjacent.next {
+        text-align: left;
+    }
+
+    .blog-profile-media {
+        max-width: 190px;
+    }
+}
+
+@media (min-width: 941px) and (max-width: 1180px) {
+    .two-col-layout {
+        grid-template-columns: minmax(0, 1.35fr) minmax(300px, 1fr);
+        gap: 1rem;
+    }
+
+    .blog-post-layout {
+        grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
+    }
+}
